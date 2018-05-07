@@ -10,7 +10,7 @@
 	<script src="TemplateData/UnityProgress.js"></script>  
     <script src="Build/UnityLoader.js"></script>
     <script>
-		var gameInstance = UnityLoader.instantiate("gameContainer", "Build/PoESimulator.json", {onProgress: UnityProgress, Module: {
+		var gameInstance = UnityLoader.instantiate("gameContainer", "Build/FakePoEWebsite.json", {onProgress: UnityProgress, Module: {
 		onRuntimeInitialized: function () {
 		UnityProgress(gameInstance, "complete");
 		},
