@@ -1,7 +1,106 @@
 <!DOCTYPE html>
-<html>
-<body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
-</body>
+<html lang="en-us">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>PoE Simulator</title>
+	    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+	<script src="TemplateData/UnityProgress.js"></script>  
+    <script src="Build/UnityLoader.js"></script>
+    <script>
+		var gameInstance = UnityLoader.instantiate("gameContainer", "Build/PoESimulator.json", {onProgress: UnityProgress, Module: {
+		onRuntimeInitialized: function () {
+		UnityProgress(gameInstance, "complete");
+		},
+		}});
+		
+		var scaleToFit;
+		try{
+			scaleToFit = !!JSON.parse("%UNITY_CUSTOM_SCALE_TO_FIT%");
+		}catch(e){
+			scaleToFit = true;
+		}
+		window.onresize = function(){
+			var canvas = gameInstance.Module.canvas;
+			var container = gameInstance.container;
+			var w;
+			var h;
+
+			if(scaleToFit){
+				w = window.innerWidth;
+				h = window.innerHeight;
+
+				var r = 576/1024;
+
+				if(w * r > window.innerHeight){
+					w = Math.min(w, Math.ceil(h / r));
+				}
+				h = Math.floor(w * r);
+			}else{
+				w=1024;
+				h=576;
+			}
+
+			container.style.width = canvas.style.width = w + "px";
+			container.style.height = canvas.style.height = h + "px";
+			container.style.top = Math.floor((window.innerHeight - h)/2) + "px";
+			container.style.left = Math.floor((window.innerWidth - w)/2) + "px";
+		}
+    </script>
+	<style>
+		html,body{
+			background: #000;
+			background: %UNITY_CUSTOM_BACKGROUND%;
+			width: 100%;
+			height: 100%;
+			overflow:visible;
+			padding:0;
+			margin:0;
+		}
+		div#gameContainer{
+			background: transparent!important;
+			position: absolute;
+		}
+		div#gameContainer canvas{
+			position: absolute;
+			image-rendering: optimizeSpeed;
+            image-rendering: -webkit-crisp-edges;
+			image-rendering: -moz-crisp-edges;
+			image-rendering: -o-crisp-edges;
+			image-rendering: crisp-edges;
+			image-rendering: -webkit-optimize-contrast;
+            image-rendering: optimize-contrast;
+			image-rendering: pixelated;
+			-ms-interpolation-mode: nearest-neighbor;
+		}
+	</style>
+	
+  </head>
+  
+  <!-- 
+  Hi I'm u/fish312 and thanks for playing my game. 
+  If you're reading this it means you know how to view source. Grats.
+  Please support GGG and their awesome game, and buy their MTX. 
+  Like seriously, just buy a bunch of weta pets or something. 
+  
+  Also, now that I have your attention, I'd like some of your karma, the reddit kind. 
+  Like, as much as you're legally allowed to give me. 
+  (Karmawhoring in your own HTML source is allowed right?)
+  
+  I am not affiliated with GGG in any way.
+  -->
+  
+<body onload="window.onresize();">
+    <script>	
+	function mouseDown(event) {
+		if (event.button == 1) event.preventDefault();
+	}
+	</script>
+    	<div class="webgl-content"  style="width: 100%; height: 100%; ">
+      <div id="gameContainer" onmousedown="mouseDown(event)"></div>	 
+    </div>    
+  </body>
+  
 </html>
