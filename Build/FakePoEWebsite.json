@@ -5,7 +5,7 @@
 "asmCodeUrl": "FakePoEWebsite.asm.code.unityweb",
 "asmMemoryUrl": "FakePoEWebsite.asm.memory.unityweb",
 "asmFrameworkUrl": "FakePoEWebsite.asm.framework.unityweb",
-"TOTAL_MEMORY": 402653184,
+"TOTAL_MEMORY": 268435456,
 "graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
 "webglContextAttributes": {"preserveDrawingBuffer": false},
 "splashScreenStyle": "Dark",
