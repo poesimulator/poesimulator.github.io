@@ -1,0 +1,13 @@
+{
+"companyName": "PoE Simulator",
+"productName": "Tiny's Trial Version",
+"dataUrl": "trial.data.unityweb",
+"asmCodeUrl": "trial.asm.code.unityweb",
+"asmMemoryUrl": "trial.asm.memory.unityweb",
+"asmFrameworkUrl": "trial.asm.framework.unityweb",
+"TOTAL_MEMORY": 268435456,
+"graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20"
+}
