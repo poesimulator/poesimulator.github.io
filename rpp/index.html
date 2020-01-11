@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	 <title>PoESimulator - Reddit Plays PoE</title>    
+		<style>
+		#screen {
+		  position: absolute;
+			top:0;
+			bottom: 0;
+			left: 0;
+			right: 0;			
+			text-align:center;
+			margin:auto;
+			float:center;	
+			width: 100%;
+			height: 100%;
+			display: none;
+			z-index: 2;
+		}
+		#turninfo {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 10%;
+		   text-align:center;
+		   display: none;
+		   color: blue;
+		}
+		#streamboxinner {
+		   position: absolute;
+			top:0;
+			bottom: 0;
+			left: 0;
+			right: 0;			
+			text-align:center;
+			margin:auto;
+			float:center;	
+			width: 100%;
+			height: 100%;			
+		}
+		#streambox {
+		    display: none;
+			text-align:center;
+			float:center;	
+		}
+		#idiv {	
+			position:relative;
+			padding-top: 56.25%;
+			text-align:center;
+			float:center;	
+		}
+		#infotx {				
+			text-align:center;
+			float:center;	
+			display: none;
+		}
+		#odiv {				
+			text-align:center;
+			float:center;	
+			width: 80%;
+			height: 80%;
+			margin:auto;
+			display: none;
+		}
+				
+	</style>	
+	<script src="jquery.min.js"></script>		
+	<link href="style.css" rel="stylesheet" id="bootstrap-css">	
+	<link href="bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="bootstrap.min.js"></script>	
+    </head>
+	
+	<!-- What does it take for one to be happy? 
+		I spent years getting a degree in comp sci, studying games dev, and now I'm just a mediocre software engineer, all by my own choice. 
+		I know that I was once as good as any, and better than most. But I was always just scared. Scared to fail, scared of rejection, that I never dared to try. 
+		I sometimes think that I intentionally sabotage my own chances for happiness. I want to be happy but I won't allow myself to be because I feel that I don't deserve it.
+		That's why I make these weird things on reddit, seeking an external source of validation that I know I can achieve because I have before. 
+		The desired to be wanted and appreciated is such a visceral thing - I'd pour hours into making these projects, so some passing strangers can give me a few seconds of attention.
+		-->
+	
+    <body>		 
+		<span id="conn">
+		<div class="wrapper fadeInDown">
+		  <div id="formContent">			
+			<div class="fadeIn first">
+			  <img src="logo.png"></img><br/>
+			  PoESimulator - Reddit Plays PoE
+			</div>
+			<form>
+			  <input id="nick" type="text" class="fadeIn second" name="nick" maxlength="14" placeholder="Nickname">
+			  <input id="loginBtn" type="button" class="fadeIn fourth slimbtn" value="Connect Queue">
+			  <input id="streambtn" type="button" class="fadeIn fourth slimbtn" value="Watch Stream">
+			</form>
+			<div id="formFooter">
+			  <span id="introtext">Connect to join the queue.</span>
+			</div>
+		  </div>
+		</div>
+		</span>
+	       
+		<p id="infotx"></p>		
+		<div id="odiv">
+		<div id="idiv">
+		<canvas id="screen" width="0" height="0" oncontextmenu="return false;" tabindex="1" style="">
+        </canvas>
+		<span id="streambox"></span>
+		</div>
+		</div>
+		<h2 id="turninfo">Loading...</h2>		
+        <script src="/clientsocket.js"></script>
+		
+        <script>
+		var e,n,t="http://poe.enhance.stream:8081",o='<iframe id="streamboxinner" src="https://player.twitch.tv/?channel=poesimulator&enableExtensions=true" frameborder="0" scrolling="no" allowfullscreen="false"></iframe>',l='Want to play? Click <a href="/?v=0">here</a> to join queue.',s="Uh oh, looks like server is not responding. Please check Reddit for updates!",r=(new Date).getTime(),c=function(e){var n,t,i=window.location.search.substring(1).split("&");for(t=0;t<i.length;t++)if((n=i[t].split("="))[0]===e)return void 0===n[1]||decodeURIComponent(n[1])}("v"),d=!1,a=document.getElementById("turninfo"),u=document.getElementById("introtext"),y=document.getElementById("screen"),f=document.getElementById("streambox"),m=document.getElementById("infotx"),h=y.getContext("2d"),p=document.getElementById("conn"),k=document.getElementById("odiv"),g=new Uint8Array(256),b=0,v=((new Date).getTime(),""),T=["You still profit 35c","Another browser based atrocity","Le toucan is kill","100% science based","GGG pls no angery","Sorry for potato specs","Popsicle sticks not supported","<a href=https://old.reddit.com/user/fish312/>Stalk me on Reddit</a>"];u.innerHTML=T[Math.floor(Math.random()*T.length)]+"<br/>Connect to join the queue<br/><a href=help.html>What is this?</a>",setInterval(function(){var t=document.getElementById("streamboxinner");if(null!=t&&(y.width=t.offsetWidth,y.height=t.offsetHeight),null!=n){var i=((new Date).getTime()-r)/1e3;if(null==e)a.innerHTML="Awaiting Queue Data",h.clearRect(0,0,y.width,y.height),y.style.border="thick solid #0000ff",a.style.color="blue",d=!1;else{var o=(e.tl-i-1).toFixed(1);o=o<0?0:o,0==e.qno?(a.innerHTML="Your Turn! ("+o+"s left)",a.style.color="green",y.style.border="thick solid #00ff00",d=!0):1==e.qno?o>0?(a.innerHTML="Currently Playing: "+e.cusr+"<br/>You are Next! (Get Ready "+o+"s)",y.style.border="thick solid #ff0000",a.style.color="red",d=!1):(a.innerHTML="Your Turn!",a.style.color="green",y.style.border="thick solid #00ff00",d=!0):(a.innerHTML="Currently Playing: "+e.cusr+"<br/>Queue Position: "+e.qno+" of "+e.tno,y.style.border="thick solid #ff0000",a.style.color="red",d=!1)}}},300),document.getElementById("nick").value="Guest_"+Math.floor(8999*Math.random()+1e3),y.focus(),m.innerHTML="<br/>","1"==c&&(p.style.display="none",y.style.display="none",a.style.display="none",f.style.display="block",f.innerHTML=o,m.innerHTML=l,k.style.display="block",m.style.display="block"),document.getElementById("streambtn").addEventListener("click",function(){p.style.display="none",y.style.display="none",a.style.display="none",f.style.display="block",f.innerHTML=o,m.innerHTML=l,k.style.display="block",m.style.display="block"},!1),document.getElementById("loginBtn").addEventListener("click",function(){f.innerHTML=o,k.style.display="block",m.style.display="block",B()},!1);var L,M,w,H=!1;function E(e){var n=parseInt(e,10),t=Math.floor(n/3600),i=Math.floor((n-3600*t)/60),o=n-3600*t-60*i;return t<10&&(t="0"+t),i<10&&(i="0"+i),o<10&&(o="0"+o),t+":"+i+":"+o}function B(){p.style.display="none",y.style.display="block",a.style.display="block",f.style.display="block",m.innerHTML="<br/>",null==n&&(setTimeout(function(){null==e&&"block"===a.style.display&&(m.innerHTML=s)},5500),(n=io.connect(t)).on("connect_error",function(n){null==e&&(m.innerHTML=s)}),n.on("turn",function(n){e=n,r=(new Date).getTime()}),n.on("newconid",function(e){v=e;var t=document.getElementById("nick").value;t=t.replace(/\W/g,"").substring(0,15),n.emit("setnick",t)}),n.on("info",function(e){null!=n&&(m.innerHTML="Mission Time: "+E(e.mt)+" | Relay Uptime: "+E(e.ut)+" | Turns Taken: "+e.tc)}),n.on("disconnect",t=>{e=null,n.close(),n=null,""==v?(p.style.display="",y.style.display="none",a.style.display="none",f.style.display="none",f.innerHTML="",m.innerHTML="",k.style.display="none",m.style.display="none",u.innerHTML="Disconnected<br/>You may be making too many connections, or server is full."):(p.style.display="none",y.style.display="none",f.style.display="block",a.innerHTML="",a.style.display="none",u.innerHTML="Your turn is over<br/>Reconnect to join the queue.",m.innerHTML='Your turn is over! <a href="#" onclick="B();return false;">Reconnect to join the queue</a>.'),v=""}))}function C(e){if(e.preventDefault(),H){var t=y.getBoundingClientRect(),i=(e.clientX-t.left)/y.width,o=(e.clientY-t.top)/y.height;y.focus(),H=!1,""!=v&&d&&n.emit("mc",{x:i,y:o,k:b,s:0})}}y.addEventListener("mousedown",function(e){if(e.preventDefault(),!H&&(y.focus(),H=!0,"which"in e)){var t=y.getBoundingClientRect(),i=(e.clientX-t.left)/y.width,o=(e.clientY-t.top)/y.height;b=e.which,""!=v&&d&&n.emit("mc",{x:i,y:o,k:e.which,s:1})}}),y.addEventListener("mousemove",(L=function(e){if(""!=v&&d&&"which"in e){var t=y.getBoundingClientRect(),i=(e.clientX-t.left)/y.width,o=(e.clientY-t.top)/y.height;i>0&&i<1&&o>0&&o<1&&n.emit("mm",{x:i,y:o,k:e.which,s:H?1:0})}},M=200,w=(new Date).getTime(),function(){var e=(new Date).getTime();e-w>=M&&(w=e,L.apply(null,arguments))}),!1),y.addEventListener("mouseup",C),y.addEventListener("mouseleave",C),y.addEventListener("keydown",function(e){0==g[e.keyCode]&&d&&(g[e.keyCode]=1,n.emit("kp",{k:e.keyCode,s:1}))}),y.addEventListener("keyup",function(e){1==g[e.keyCode]&&d&&(g[e.keyCode]=0,n.emit("kp",{k:e.keyCode,s:0}))}),y.addEventListener("focusout",function(e){var t=g.length;if(d)for(i=0;i<t;++i)1==g[i]&&(g[i]=0,n.emit("kp",{k:i,s:0}))})
+		</script>	
+		
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-118985442-4"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		  gtag('config', 'UA-118985442-4');
+		</script>
+
+		
+    </body>
+</html>
